@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
        if (Input.GetButtonDown("Jump"))
        {
             jump = true;
+            horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
        }
     }
 
@@ -29,3 +30,4 @@ public class PlayerMovement : MonoBehaviour
         jump = false;
     }
 }
+

@@ -4,30 +4,26 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterController2D controller;
-
-    float horizontalMove = 0f;
-
+    public float horizontalMove = 0f;
     public float runSpeed = 40f;
 
-    bool jump = false;
+    private CharacterController2D Controller;
 
-    // Update is called once per frame
-    void Update()
+    public void Start()
     {
-       horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-
-       if (Input.GetButtonDown("Jump"))
-       {
-            jump = true;
-       }
+        Controller = GetComponent<CharacterController2D>();
     }
 
-    void FixedUpdate()
+    public void Update()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime);
-        controller.Jump(jump);
-        jump = false;
+        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+
+        if (Input.GetButtonDown("Jump") && Controller.IsGrounded())
+        {
+            Controller.Jump();
+        }
+
+        Controller.Move(horizontalMove * Time.fixedDeltaTime);
     }
 }
 
